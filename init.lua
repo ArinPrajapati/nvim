@@ -231,7 +231,6 @@ vim.opt.rtp:prepend(lazypath)
 --
 -- NOTE: Here is where you install your plugins.
 
-
 require('lazy').setup({
   -- NOTE: Plugins can be added with a link (or for a github repo: 'owner/repo' link).
   'tpope/vim-sleuth',
@@ -246,9 +245,8 @@ require('lazy').setup({
       'saadparwaiz1/cmp_luasnip',
     },
     config = function()
-      require('cmp-config')
+      require 'cmp-config'
     end,
-
   },
 
   -- Detect tabstop and shiftwidth automatically
@@ -639,8 +637,17 @@ require('lazy').setup({
       -- Diagnostic Config
       -- See :help vim.diagnostic.Opts
       vim.diagnostic.config {
+        update_in_insert = false,
         severity_sort = true,
-        float = { border = 'rounded', source = 'if_many' },
+        --float = { border = 'rounded', source = 'if_many' },
+        float = {
+          focusable = false,
+          style = 'minimal',
+          border = 'rounded',
+          source = 'if_many',
+          header = '',
+          prefix = '',
+        },
         underline = { severity = vim.diagnostic.severity.ERROR },
         signs = vim.g.have_nerd_font and {
           text = {
@@ -650,19 +657,23 @@ require('lazy').setup({
             [vim.diagnostic.severity.HINT] = '󰌶 ',
           },
         } or {},
-        virtual_text = {
-          source = 'if_many',
-          spacing = 2,
-          format = function(diagnostic)
-            local diagnostic_message = {
-              [vim.diagnostic.severity.ERROR] = diagnostic.message,
-              [vim.diagnostic.severity.WARN] = diagnostic.message,
-              [vim.diagnostic.severity.INFO] = diagnostic.message,
-              [vim.diagnostic.severity.HINT] = diagnostic.message,
-            }
-            return diagnostic_message[diagnostic.severity]
-          end,
-        },
+        virtual_text = false,
+
+        --   virtual_text = {
+        --   source = 'if_many',
+        --   spacing = 2,
+        --   format = function(diagnostic)
+        --    local diagnostic_message = {
+        --     [vim.diagnostic.severity.ERROR] = diagnostic.message,
+        --    [vim.diagnostic.severity.WARN] = diagnostic.message,
+        --    [vim.diagnostic.severity.INFO] = diagnostic.message,
+        --   [vim.diagnostic.severity.HINT] = diagnostic.message,
+        -- }
+        --  return diagnostic_message[diagnostic.severity]
+        --  end,
+        -- },
+        --
+        vim.keymap.set('n', '<leader>d', vim.diagnostic.open_float, { noremap = true, silent = true }),
       }
 
       -- LSP servers and clients are able to communicate to each other what features they support.
