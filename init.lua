@@ -718,7 +718,7 @@ require('lazy').setup({
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
         clangd = {},
-        -- gopls = {},
+        gopls = {},
         -- pyright = {},
         -- rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
@@ -1030,6 +1030,9 @@ require('lazy').setup({
         'tsx',
         'json',
         'css',
+        'go',
+        'gomod',
+        'gosum',
       },
       -- Autoinstall languages that are not installed
       auto_install = true,
@@ -1113,3 +1116,9 @@ vim.opt.foldmethod = 'expr'
 vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
 vim.opt.foldenable = false -- keep everything open by default
 vim.opt.foldlevel = 99
+
+-- Go: save and run with <leader>rr
+vim.keymap.set('n', '<leader>rr', function()
+  vim.cmd 'w'
+  vim.cmd '!go run .'
+end, { desc = '[R]un Go project' })
