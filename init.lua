@@ -8,6 +8,7 @@
 ========         |.-""""""""""""""""""-.|   |-----|          ========
 ========         ||                    ||   | === |          ========
 ========         ||   KICKSTART.NVIM   ||   |-----|          ========
+
 ========         ||                    ||   | === |          ========
 ========         ||                    ||   |-----|          ========
 ========         ||:Tutor              ||   |:::::|          ========
@@ -164,6 +165,11 @@ vim.opt.scrolloff = 10
 
 -- clipboard setup
 vim.opt.clipboard = 'unnamedplus'
+
+-- soft warp
+vim.opt.wrap = true -- Soft wrap
+vim.opt.linebreak = true -- Wrap at word boundaries
+vim.opt.list = false -- Hide special list characters
 
 -- Clear highlights on search when pressing <Esc> in normal mode
 --  See `:help hlsearch`
@@ -948,11 +954,9 @@ require('lazy').setup({
     config = function()
       ---@diagnostic disable-next-line: missing-fields
       require('tokyonight').setup {
-      transparent=true, -- Enable transparent background
+        transparent = true, -- Enable transparent background
         styles = {
           comments = { italic = false }, -- Disable italics in comments
-        
-          
         },
       }
 
@@ -1009,7 +1013,24 @@ require('lazy').setup({
     main = 'nvim-treesitter.configs', -- Sets main module to use for opts
     -- [[ Configure Treesitter ]] See `:help nvim-treesitter`
     opts = {
-      ensure_installed = { 'bash', 'c', 'diff', 'html', 'lua', 'luadoc', 'markdown', 'markdown_inline', 'query', 'vim', 'vimdoc' },
+      ensure_installed = {
+        'bash',
+        'c',
+        'diff',
+        'html',
+        'lua',
+        'luadoc',
+        'markdown',
+        'markdown_inline',
+        'query',
+        'vim',
+        'vimdoc',
+        'javascript',
+        'typescript',
+        'tsx',
+        'json',
+        'css',
+      },
       -- Autoinstall languages that are not installed
       auto_install = true,
       highlight = {
@@ -1088,3 +1109,7 @@ vim.opt.softtabstop = 4 -- Tab key behaves like 4 spaces
 vim.opt.expandtab = true -- Convert tabs to spaces
 vim.opt.smartindent = true -- Auto-indent based on code structure
 vim.opt.autoindent = true
+vim.opt.foldmethod = 'expr'
+vim.opt.foldexpr = 'nvim_treesitter#foldexpr()'
+vim.opt.foldenable = false -- keep everything open by default
+vim.opt.foldlevel = 99
