@@ -3,7 +3,5 @@
 --
 -- See the kickstart.nvim README for more information
 return {
-{
-
-
+  -- Add plugin specs here when you want to enable `import = 'custom.plugins'`.
 }
